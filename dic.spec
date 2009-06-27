@@ -18,10 +18,15 @@ Requires:	python-modules
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Dic is a simple, console-based disk catalogizer.
+Dic is a simple, console-based disk catalogizer. It can easily add
+disks to the catalog, search in the catalog, search for files,
+automatically retrieve found files without requiring you to manually
+navigate through the source media, and more.
 
 %description -l hu.UTF-8
-Dic egy egyszerű, konzolos lemez katalogizáló.
+Dic egy egyszerű, konzolos lemez katalogizáló. Könnyen adhatsz új
+lemezeket a katalógushoz, kereshetsz a katalógusban, fájlok után,
+automatikusan átmásolhatod a fájlokat kézi navigálás nélkül, stb.
 
 %prep
 %setup -q
