@@ -1,10 +1,11 @@
 # TODO: 
 # - maybe create bash-completion
+# - mc subpackage: doesn't work with mc, maybe need edit mc's config files
 Summary:	Dic is a simple, console-based disk catalogizer
 Summary(hu.UTF-8):	Dic egy egyszerű, konzolos lemez katalogizáló
 Name:		dic
 Version:	0.7
-Release:	1
+Release:	1.5	
 License:	GPL v2
 Group:		Applications
 Source0:	http://dl.sourceforge.net/dic/%{name}-%{version}.tar.bz2
@@ -30,6 +31,17 @@ Dic egy egyszerű, konzolos lemez katalogizáló. Könnyen adhatsz új
 lemezeket a katalógushoz, kereshetsz a katalógusban, fájlok után,
 automatikusan átmásolhatod a fájlokat kézi navigálás nélkül, stb.
 
+%package mc
+Summary:	Extfs plugin for Midnight Commander
+Summary(hu.UTF-8):	Extfs plugin Midnight Commander-hez
+Group:	Applications/Shells
+
+%description mc
+Extfs plugin for Midnight Commander.
+
+%description -l hu.UTF-8 mc
+Extfs plugin Midnight Commander-hez.
+
 %prep
 %setup -q
 
@@ -51,6 +63,9 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man{1,5}
 install man/dic.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install man/dic.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5
 
+install -d $RPM_BUILD_ROOT%{_datadir}/mc/extfs
+install build/scripts-2.6/mcdic $RPM_BUILD_ROOT%{_datadir}/mc/extfs
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -63,3 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/dic/*
 %attr(755,root,root) %{_bindir}/*dic
 %{py_sitescriptdir}/*
+
+%files mc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_datadir}/mc/extfs/mcdic
