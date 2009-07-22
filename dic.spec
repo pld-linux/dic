@@ -1,11 +1,11 @@
-# TODO: 
+# TODO:
 # - maybe create bash-completion
-# - mc subpackage: doesn't work with mc, maybe need edit mc's config files
+# - mc subpackage: doesn't work the %%post. Why?
 Summary:	Dic is a simple, console-based disk catalogizer
 Summary(hu.UTF-8):	Dic egy egyszerű, konzolos lemez katalogizáló
 Name:		dic
 Version:	0.7
-Release:	1.5	
+Release:	1.7
 License:	GPL v2
 Group:		Applications
 Source0:	http://dl.sourceforge.net/dic/%{name}-%{version}.tar.bz2
@@ -19,6 +19,8 @@ BuildRequires:	rpmbuild(macros) >= 1.219
 Requires:	python-modules
 #BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define	mcextfs %{_datadir}/mc/extfs/extfs.ini
 
 %description
 Dic is a simple, console-based disk catalogizer. It can easily add
@@ -34,13 +36,16 @@ automatikusan átmásolhatod a fájlokat kézi navigálás nélkül, stb.
 %package mc
 Summary:	Extfs plugin for Midnight Commander
 Summary(hu.UTF-8):	Extfs plugin Midnight Commander-hez
-Group:	Applications/Shells
+Group:		Applications/Shells
+Requires:	mc
 
 %description mc
-Extfs plugin for Midnight Commander.
+Extfs plugin for Midnight Commander. In the running Midnight Commander
+type "cd #mcdic".
 
-%description -l hu.UTF-8 mc
-Extfs plugin Midnight Commander-hez.
+%description mc -l hu.UTF-8
+Extfs plugin Midnight Commander-hez. A futó Midnight Commander-ben
+gépeld be a "cd #mcdic" sort!
 
 %prep
 %setup -q
@@ -82,3 +87,6 @@ rm -rf $RPM_BUILD_ROOT
 %files mc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_datadir}/mc/extfs/mcdic
+
+%post mc
+grep mcdic %{mcextfs} &> /dev/null || echo -e "\n# dic disk catalogizer\nmcdic:\n" >> %{mcextfs}
