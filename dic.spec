@@ -89,4 +89,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/mc/extfs/mcdic
 
 %post mc
-grep mcdic %{mcextfs} &> /dev/null || echo -e "\n# dic disk catalogizer\nmcdic:\n" >> %{mcextfs}
+if [ -f %{mcextfs} ]; then
+	grep -q mcdic %{mcextfs} || echo -e "\n# dic disk catalogizer\nmcdic:\n" >> %{mcextfs}
+fi
