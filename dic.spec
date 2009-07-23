@@ -1,11 +1,10 @@
 # TODO:
 # - maybe create bash-completion
-# - mc subpackage: doesn't work the %%post. Why?
 Summary:	Dic is a simple, console-based disk catalogizer
 Summary(hu.UTF-8):	Dic egy egyszerű, konzolos lemez katalogizáló
 Name:		dic
 Version:	0.7
-Release:	1.7
+Release:	2
 License:	GPL v2
 Group:		Applications
 Source0:	http://dl.sourceforge.net/dic/%{name}-%{version}.tar.bz2
@@ -13,11 +12,9 @@ Source0:	http://dl.sourceforge.net/dic/%{name}-%{version}.tar.bz2
 URL:		http://dic.sourceforge.net/
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
-# if py_postclean is used
 BuildRequires:	rpmbuild(macros) >= 1.219
-#Requires:		python-libs
 Requires:	python-modules
-#BuildArch:	noarch
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define	mcextfs %{_datadir}/mc/extfs/extfs.ini
