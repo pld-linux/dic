@@ -1,0 +1,29 @@
+# dic bash_completition - made by uzsolt
+
+_dic() 
+{
+	local cur
+
+	COMPREPLY=()
+        prev=${COMP_WORDS[COMP_CWORD-1]}
+        cur=${COMP_WORDS[COMP_CWORD]}
+        if [ ${prev} = "show" -o ${prev} = "update" -o ${prev} = "remove" -o ${prev} = "view" ]; then
+            COMPREPLY=( $( compgen -W "$(dic list | cut --byte 1-21 | sed -n "3,$ p" | sed "s@ *\$@@ ; s@\ @\\\ @g")" -- $cur ) )
+        elif [ ${prev} = "search" -o ${prev} = "list" -o ${prev} = "add" ]; then
+            COMREPLY=""
+        else
+            case "$cur" in
+                -*)
+                    COMPREPLY=( $( compgen -W '-h --help -i --case-sensitive -d --device -r --regexp\
+                        -l --long -g --get -c --category -s --status -m --mode' -- $cur ) )
+                    ;;
+                *)
+                    COMPREPLY=( $( compgen -W 'add search remove get show list update view' -- $cur ) )
+                    ;;
+            esac
+        fi
+  
+	return 0
+
+}
+complete -F _dic dic
