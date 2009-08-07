@@ -9,6 +9,7 @@ License:	GPL v2
 Group:		Applications
 Source0:	http://dl.sourceforge.net/dic/%{name}-%{version}.tar.bz2
 # Source0-md5:	c604751a05298dad2492189e1f31ec21
+Source1:	%{name}-bash-completion
 URL:		http://dic.sourceforge.net/
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
@@ -44,6 +45,18 @@ type "cd #mcdic".
 Extfs plugin Midnight Commander-hez. A futó Midnight Commander-ben
 gépeld be a "cd #mcdic" sort!
 
+%package bash-completion
+Summary:	bash-completion to dic
+Summary(hu.UTF-8):	Bash automatikus kiegészítés dic-hez
+Group:		Applications/Shells
+Requires:	%{name}
+
+%description bash-completion
+Bash-completion to dic.
+
+%description bash-completion -l hu.UTF-8
+Bash automatikus kiegészítés dic-hez.
+
 %prep
 %setup -q
 
@@ -68,6 +81,9 @@ install man/dic.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5
 install -d $RPM_BUILD_ROOT%{_datadir}/mc/extfs
 install build/scripts-2.6/mcdic $RPM_BUILD_ROOT%{_datadir}/mc/extfs
 
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/dic
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -84,6 +100,10 @@ rm -rf $RPM_BUILD_ROOT
 %files mc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_datadir}/mc/extfs/mcdic
+
+%files bash-completion
+%defattr(644,root,root,755)
+%{_sysconfdir}/bash_completion.d/%{name}
 
 %post mc
 if [ -f %{mcextfs} ]; then
