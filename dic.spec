@@ -1,5 +1,3 @@
-# TODO:
-# - maybe create bash-completion
 Summary:	Dic is a simple, console-based disk catalogizer
 Summary(hu.UTF-8):	Dic egy egyszerű, konzolos lemez katalogizáló
 Name:		dic
@@ -18,7 +16,7 @@ Requires:	python-modules
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define	mcextfs %{_datadir}/mc/extfs/extfs.ini
+%define		mcextfs		%{_datadir}/mc/extfs/extfs.ini
 
 %description
 Dic is a simple, console-based disk catalogizer. It can easily add
@@ -45,16 +43,17 @@ type "cd #mcdic".
 Extfs plugin Midnight Commander-hez. A futó Midnight Commander-ben
 gépeld be a "cd #mcdic" sort!
 
-%package bash-completion
+%package -n bash-completion-%{name}
 Summary:	bash-completion to dic
 Summary(hu.UTF-8):	Bash automatikus kiegészítés dic-hez
 Group:		Applications/Shells
-Requires:	%{name}
+Requires:	%{name} = %{version}-%{release}
+Requires:	bash-completion
 
-%description bash-completion
+%description -n bash-completion-%{name}
 Bash-completion to dic.
 
-%description bash-completion -l hu.UTF-8
+%description -n bash-completion-%{name} -l hu.UTF-8
 Bash automatikus kiegészítés dic-hez.
 
 %prep
@@ -81,8 +80,8 @@ install man/dic.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5
 install -d $RPM_BUILD_ROOT%{_datadir}/mc/extfs
 install build/scripts-2.6/mcdic $RPM_BUILD_ROOT%{_datadir}/mc/extfs
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/dic
+install -d $RPM_BUILD_ROOT/etc/bash_completion.d
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/bash_completion.d/dic
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -101,9 +100,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_datadir}/mc/extfs/mcdic
 
-%files bash-completion
+%files -n bash-completion-%{name}
 %defattr(644,root,root,755)
-%{_sysconfdir}/bash_completion.d/%{name}
+/etc/bash_completion.d/%{name}
 
 %post mc
 if [ -f %{mcextfs} ]; then
