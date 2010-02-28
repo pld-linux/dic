@@ -33,6 +33,7 @@ automatikusan átmásolhatod a fájlokat kézi navigálás nélkül, stb.
 Summary:	Extfs plugin for Midnight Commander
 Summary(hu.UTF-8):	Extfs plugin Midnight Commander-hez
 Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
 Requires:	mc
 
 %description mc
