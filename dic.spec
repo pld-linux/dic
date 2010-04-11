@@ -2,10 +2,10 @@ Summary:	Dic is a simple, console-based disk catalogizer
 Summary(hu.UTF-8):	Dic egy egyszerű, konzolos lemez katalogizáló
 Name:		dic
 Version:	0.7
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		Applications
-Source0:	http://dl.sourceforge.net/dic/%{name}-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/dic/%{name}-%{version}.tar.bz2
 # Source0-md5:	c604751a05298dad2492189e1f31ec21
 Source1:	%{name}-bash-completion
 URL:		http://dic.sourceforge.net/
@@ -15,8 +15,6 @@ BuildRequires:	rpmbuild(macros) >= 1.219
 Requires:	python-modules
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		mcextfs		%{_datadir}/mc/extfs/extfs.ini
 
 %description
 Dic is a simple, console-based disk catalogizer. It can easily add
@@ -29,18 +27,19 @@ Dic egy egyszerű, konzolos lemez katalogizáló. Könnyen adhatsz új
 lemezeket a katalógushoz, kereshetsz a katalógusban, fájlok után,
 automatikusan átmásolhatod a fájlokat kézi navigálás nélkül, stb.
 
-%package mc
+%package -n mc-plugin-dic
 Summary:	Extfs plugin for Midnight Commander
 Summary(hu.UTF-8):	Extfs plugin Midnight Commander-hez
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Requires:	mc
+Obsoletes:	dic-dic
 
-%description mc
+%description -n mc-plugin-dic
 Extfs plugin for Midnight Commander. In the running Midnight Commander
 type "cd #mcdic".
 
-%description mc -l hu.UTF-8
+%description -n mc-plugin-dic -l hu.UTF-8
 Extfs plugin Midnight Commander-hez. A futó Midnight Commander-ben
 gépeld be a "cd #mcdic" sort!
 
@@ -78,8 +77,8 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man{1,5}
 install man/dic.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install man/dic.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5
 
-install -d $RPM_BUILD_ROOT%{_datadir}/mc/extfs
-install build/scripts-2.6/mcdic $RPM_BUILD_ROOT%{_datadir}/mc/extfs
+install -d $RPM_BUILD_ROOT%{_libdir}/mc/extfs.d
+install build/scripts-2.6/mcdic $RPM_BUILD_ROOT%{_libdir}/mc/extfs.d
 
 install -d $RPM_BUILD_ROOT/etc/bash_completion.d
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/bash_completion.d/dic
@@ -97,15 +96,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*dic
 %{py_sitescriptdir}/*
 
-%files mc
+%files -n mc-plugin-dic
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_datadir}/mc/extfs/mcdic
+%attr(755,root,root) %{_libdir}/mc/extfs.d/mcdic
 
 %files -n bash-completion-%{name}
 %defattr(644,root,root,755)
 /etc/bash_completion.d/%{name}
-
-%post mc
-if [ -f %{mcextfs} ]; then
-	grep -q mcdic %{mcextfs} || echo -e "\n# dic disk catalogizer\nmcdic:\n" >> %{mcextfs}
-fi
