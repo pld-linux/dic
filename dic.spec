@@ -2,7 +2,7 @@ Summary:	Dic is a simple, console-based disk catalogizer
 Summary(hu.UTF-8):	Dic egy egyszerű, konzolos lemez katalogizáló
 Name:		dic
 Version:	0.7
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Applications
 Source0:	http://downloads.sourceforge.net/dic/%{name}-%{version}.tar.bz2
@@ -13,7 +13,6 @@ BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 Requires:	python-modules
-BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
