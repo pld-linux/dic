@@ -9,7 +9,7 @@ Source0:	http://downloads.sourceforge.net/dic/%{name}-%{version}.tar.bz2
 # Source0-md5:	c604751a05298dad2492189e1f31ec21
 Source1:	%{name}-bash-completion
 URL:		http://dic.sourceforge.net/
-BuildRequires:	python-devel >= 2.7
+BuildRequires:	python-devel >= 1:2.7
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 Requires:	python-modules
@@ -73,14 +73,14 @@ rm -rf $RPM_BUILD_ROOT
 %py_postclean
 
 install -d $RPM_BUILD_ROOT%{_mandir}/man{1,5}
-install man/dic.1 $RPM_BUILD_ROOT%{_mandir}/man1
-install man/dic.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5
+cp -a man/dic.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp -a man/dic.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5
 
 install -d $RPM_BUILD_ROOT%{_libdir}/mc/extfs.d
-install build/scripts-2.7/mcdic $RPM_BUILD_ROOT%{_libdir}/mc/extfs.d
+install -p build/scripts-2.7/mcdic $RPM_BUILD_ROOT%{_libdir}/mc/extfs.d
 
 install -d $RPM_BUILD_ROOT/etc/bash_completion.d
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/bash_completion.d/dic
+cp -a %{SOURCE1} $RPM_BUILD_ROOT/etc/bash_completion.d/dic
 
 %clean
 rm -rf $RPM_BUILD_ROOT
