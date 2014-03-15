@@ -48,6 +48,9 @@ Summary(hu.UTF-8):	Bash automatikus kiegészítés dic-hez
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Requires:	bash-completion
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description -n bash-completion-%{name}
 Bash-completion to dic.
