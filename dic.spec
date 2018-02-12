@@ -2,7 +2,7 @@ Summary:	Dic is a simple, console-based disk catalogizer
 Summary(hu.UTF-8):	Dic egy egyszerű, konzolos lemez katalogizáló
 Name:		dic
 Version:	0.7
-Release:	8
+Release:	9
 License:	GPL v2
 Group:		Applications
 Source0:	http://downloads.sourceforge.net/dic/%{name}-%{version}.tar.bz2
@@ -77,7 +77,7 @@ cp -a man/dic.1 $RPM_BUILD_ROOT%{_mandir}/man1
 cp -a man/dic.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5
 
 install -d $RPM_BUILD_ROOT%{_libexecdir}/mc/extfs.d
-install -p build/scripts-2.7/mcdic $RPM_BUILD_ROOT%{_libexecdir}/mc/extfs.d
+install -p build-2/scripts-2.7/mcdic $RPM_BUILD_ROOT%{_libexecdir}/mc/extfs.d
 
 install -d $RPM_BUILD_ROOT/etc/bash_completion.d
 cp -a %{SOURCE1} $RPM_BUILD_ROOT/etc/bash_completion.d/dic
