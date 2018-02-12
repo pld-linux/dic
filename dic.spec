@@ -2,7 +2,7 @@ Summary:	Dic is a simple, console-based disk catalogizer
 Summary(hu.UTF-8):	Dic egy egyszerű, konzolos lemez katalogizáló
 Name:		dic
 Version:	0.7
-Release:	7
+Release:	8
 License:	GPL v2
 Group:		Applications
 Source0:	http://downloads.sourceforge.net/dic/%{name}-%{version}.tar.bz2
@@ -76,8 +76,8 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man{1,5}
 cp -a man/dic.1 $RPM_BUILD_ROOT%{_mandir}/man1
 cp -a man/dic.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5
 
-install -d $RPM_BUILD_ROOT%{_libdir}/mc/extfs.d
-install -p build/scripts-2.7/mcdic $RPM_BUILD_ROOT%{_libdir}/mc/extfs.d
+install -d $RPM_BUILD_ROOT%{_libexecdir}/mc/extfs.d
+install -p build/scripts-2.7/mcdic $RPM_BUILD_ROOT%{_libexecdir}/mc/extfs.d
 
 install -d $RPM_BUILD_ROOT/etc/bash_completion.d
 cp -a %{SOURCE1} $RPM_BUILD_ROOT/etc/bash_completion.d/dic
@@ -97,7 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n mc-plugin-dic
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/mc/extfs.d/mcdic
+%attr(755,root,root) %{_libexecdir}/mc/extfs.d/mcdic
 
 %files -n bash-completion-%{name}
 %defattr(644,root,root,755)
