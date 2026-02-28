@@ -2,7 +2,7 @@ Summary:	Dic is a simple, console-based disk catalogizer
 Summary(hu.UTF-8):	Dic egy egyszerű, konzolos lemez katalogizáló
 Name:		dic
 Version:	0.7
-Release:	9
+Release:	10
 License:	GPL v2
 Group:		Applications
 Source0:	http://downloads.sourceforge.net/dic/%{name}-%{version}.tar.bz2
